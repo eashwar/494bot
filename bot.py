@@ -33,13 +33,14 @@ async def on_message(message, pass_context=True):
     if _client.user in message.mentions:
         contents = message.content.lower().split()
         if len(contents) != 2:
-            await message.channel.send(f'<@{message.author.id}> error: unable to parse command. please use `@494bot help` for a list of commands.')
+            await message.channel.send(f'<@{message.author.id}> error: unable to parse command. please use `help` for a list of commands.')
         if contents[1] == 'help':
             await message.channel.send('Here\'s a list of commands:\n'
-                                      + '-`join` will let you join the office hours queue.\n' 
-                                      + '-`status` will let you check your position in the queue.\n'
-                                      + '-`list` will list all the students in the queue.\n'
-                                      + f'-`pop` can only be used by instructors. it will remove the next student from the queue, and if they\'re in the {VOICE_WAITING_ROOM} channel, they\'ll be moved into the {VOICE_HELP_ROOM} channel.')
+                                      + '- `join` will let you join the office hours queue.\n' 
+                                      + '- `status` will let you check your position in the queue.\n'
+                                      + '- `list` will list all the students in the queue.\n'
+                                      + f'- `pop` can only be used by instructors. it will remove the next student from the queue, and if they\'re in the {VOICE_WAITING_ROOM} channel, they\'ll be moved into the {VOICE_HELP_ROOM} channel.\n'
+                                      + '- `clear` can only be used by instructors. it clears the queue completely.')
         if contents[1] == 'ping':
             await message.channel.send('pong!')
         if contents[1] == 'join':
@@ -66,5 +67,10 @@ async def on_message(message, pass_context=True):
                     await message.channel.send(f'<@{next_student.id}>, it\'s your turn! Please join the {VOICE_WAITING_ROOM} voice call so that the instructor can pull you into the private call.')
             else:
                 await message.channel.send(f'<@{message.author.id}> error: you do not have permission to use this command.')
-
+        if contents[1] == 'clear':
+            if any(role.name == ADMIN_ROLE_NAME for role in message.author.roles):
+                _queue.clear()
+                await message.channel.send('The office hours queue has been completely cleared.')
+            else:
+                await message.channel.send(f'<@{message.author.id}> error: you do not have permission to use this command.')
 _client.run(BOT_TOKEN)
