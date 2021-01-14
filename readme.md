@@ -49,7 +49,7 @@ There are four environment variables that must be set before running this bot:
 - `494_DISCORD_VOICE_OH_CHANNEl` should be the private voice channel that students will individually receive help in for office hours.
 - `494_DISCORD_ADMIN_ROLE` should be the name of the administrative role that's given to course instructors; the bot checks that someone invoking the `pop` or `clear` command has this role.
 
-If you're doing development, you can set these environment values in a `.env` file created in the same folder as `bot.py`:
+If you're doing development, or just running this on a local machine, you can set these environment values in a `.env` file created in the same folder as `bot.py`:
 
 ```
 494_DISCORD_BOT_TOKEN={YOUR_SECURE_DISCORD_BOT_TOKEN}
@@ -58,4 +58,4 @@ If you're doing development, you can set these environment values in a `.env` fi
 494_DISCORD_ADMIN_ROLE=admin
 ```
 
-If you're running this for production, on a server or wherever, you should set these same environment variables directly for security.
+If you're running this for production, on a server, you should set these same environment variables directly for security. Systems like AWS and Heroku let you inject environment variables securely via the settings for the server.
