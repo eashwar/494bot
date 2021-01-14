@@ -33,7 +33,7 @@ async def on_message(message, pass_context=True):
     if _client.user in message.mentions:
         contents = message.content.lower().split()
         if len(contents) != 2:
-            await message.channel.send(f'<@{message.author.id}> error: unable to parse command. please use `help` for a list of commands.')
+            await message.channel.send(f'<@{message.author.id}> error: unable to parse command. please use `help` for a list of valid commands.')
         if contents[1] == 'help':
             await message.channel.send('Here\'s a list of commands:\n'
                                       + '- `join` will let you join the office hours queue.\n' 
@@ -73,4 +73,6 @@ async def on_message(message, pass_context=True):
                 await message.channel.send('The office hours queue has been completely cleared.')
             else:
                 await message.channel.send(f'<@{message.author.id}> error: you do not have permission to use this command.')
+        else:
+            await message.channel.send(f'<@{message.author.id}> error: unable to parse command. please use `help` for a list of valid commands.')
 _client.run(BOT_TOKEN)
